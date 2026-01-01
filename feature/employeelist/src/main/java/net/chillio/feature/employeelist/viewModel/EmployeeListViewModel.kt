@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.stateIn
 import net.chillio.feature.employeelist.state.EmployeeListViewState
 import net.chillio.feature.employeelist.useCase.EmployeeListUseCase
 import net.chillio.network.data.model.Employee
+import net.chillio.network.utils.ApiResult
 
 @HiltViewModel
 class EmployeeListViewModel @Inject constructor(
@@ -28,11 +29,28 @@ class EmployeeListViewModel @Inject constructor(
             .onStart { emit(Unit) }
             .flatMapLatest {
                 employeeListUseCase()
-                    .map { employees ->
-                        validateResponse(employees)
-                    }
-                    .onStart {
-                        emit(EmployeeListViewState(isLoading = true))
+                    .map { result ->
+                        when (result) {
+                            ApiResult.Loading -> EmployeeListViewState(isLoading = true)
+                            ApiResult.Empty -> EmployeeListViewState(
+                                isLoading = false,
+                                employees = emptyList(),
+                                isEmpty = true,
+                                errorMessage = null
+                            )
+                            is ApiResult.Success -> EmployeeListViewState(
+                                isLoading = false,
+                                employees = result.data,
+                                isEmpty = result.data.isEmpty(),
+                                errorMessage = null
+                            )
+                            is ApiResult.Error -> EmployeeListViewState(
+                                isLoading = false,
+                                employees = emptyList(),
+                                isEmpty = false,
+                                errorMessage = result.throwable.message ?: "Unknown error"
+                            )
+                        }
                     }
                     .catch { e ->
                         emit(
@@ -48,23 +66,6 @@ class EmployeeListViewModel @Inject constructor(
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = EmployeeListViewState(isLoading = true)
             )
-
-    private fun validateResponse(employees: List<Employee>): EmployeeListViewState =
-        if (employees.isEmpty()) {
-            EmployeeListViewState(
-                isLoading = false,
-                isEmpty = true,
-                employees = emptyList(),
-                errorMessage = null
-            )
-        } else {
-            EmployeeListViewState(
-                isLoading = false,
-                isEmpty = false,
-                employees = employees,
-                errorMessage = null
-            )
-        }
 
     fun retry() {
         refresh.tryEmit(Unit)

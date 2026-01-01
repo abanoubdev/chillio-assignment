@@ -1,14 +1,18 @@
 [versions]
 agp = "8.13.1"
+coreVersion = "1.7.0"
+junitVersion = "1.3.0"
 kotlin = "2.2.0"
 coreKtx = "1.17.0"
 junit = "4.13.2"
+kotlinxCoroutinesTestVersion = "1.10.2"
 ksp = "2.3.4"
 
-junit_version = "1.3.0"
 espresso_core_version = "3.7.0"
 activity_compose_version = "1.10.1"
 compose_bom_version = "2025.08.00"
+mockkVersion = "1.14.7"
+mockwebserverVersion = "5.3.2"
 retrofit_version = "3.0.0"
 hilt_version = "2.57.1"
 kotlin_serialization_version = "1.9.0"
@@ -24,23 +28,14 @@ mockito_kotlin_version = "6.0.0"
 robolectric_version = "4.16"
 hiltNavigationCompose = "1.2.0"
 coil_version = "2.7.0"
+truthVersion = "1.4.5"
+turbineVersion = "1.2.1"
 
 [libraries]
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
+androidx-core = { module = "androidx.test:core", version.ref = "coreVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-
-# Tests dependencies
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit_version" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso_core_version" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-org-jetbrains-kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines_version" }
-org-jetbrains-kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
-org-mockito-android = { group = "org.mockito.kotlin", name = "mockito-android", version.ref = "mockito_inline_version" }
-org-mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito_core_version" }
-org-mockito-inline = { group = "org.mockito", name = "mockito-inline", version.ref = "mockito_inline_version" }
-org-mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito_kotlin_version" }
-org-robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric_version" }
 
 # UI and graphics dependencies
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -88,6 +83,17 @@ com-jakewharton-retrofit-retrofit2-kotlinx-serialization-converter = { group = "
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "navigation3_version" }
 androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "navigation3_version" }
 androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycle_view_model_navigation3_version" }
+
+#Testing
+junit = { module = "junit:junit", version.ref = "junit" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTestVersion" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
+mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "mockwebserverVersion" }
+truth = { module = "com.google.truth:truth", version.ref = "truthVersion" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbineVersion" }
+
+#Android Testing
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

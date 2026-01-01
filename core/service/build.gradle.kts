@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         minSdk = projectMinSdk
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.google.dagger.hilt.android.testing.HiltTestRunner"
     }
 
     buildTypes {
@@ -59,25 +59,17 @@ dependencies {
     debugImplementation(libs.com.github.chuckerteam.chucker)
     releaseImplementation(libs.com.github.chuckerteam.chucker.no.op)
 
-    // Unit tests
+    //Testing
     testImplementation(libs.junit)
-    testImplementation(libs.com.google.dagger.hilt.android.testing)
-    kspTest(libs.com.google.dagger.hilt.android.compiler)
+    testImplementation(libs.truth)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
+    testImplementation(libs.mockwebserver)
+    testImplementation(libs.mockk)
 
-    // Unit tests
-    testImplementation(libs.junit)
-    testImplementation(libs.com.google.dagger.hilt.android.testing)
-    kspTest(libs.com.google.dagger.hilt.android.compiler)
-    testImplementation(libs.org.jetbrains.kotlinx.coroutines.test)
-    testImplementation(libs.org.jetbrains.kotlin.test)
-    testImplementation(libs.org.mockito.kotlin)
-    testImplementation(libs.org.mockito.inline)
-    testImplementation(libs.org.mockito.core)
-    testImplementation(libs.org.robolectric)
-
-    // Instrumented tests
+    //Android Testing
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.androidx.core)
+    androidTestImplementation(libs.com.google.dagger.hilt.android.testing)
+    kspAndroidTest(libs.com.google.dagger.hilt.compiler)
 }

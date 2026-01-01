@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class EmployeeListResponse(
-    val employees: List<Employee?>?
+    val employees: List<Employee?>
 )

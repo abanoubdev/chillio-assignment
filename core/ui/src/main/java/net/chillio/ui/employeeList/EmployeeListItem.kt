@@ -24,7 +24,7 @@ import net.chillio.ui.components.RoundedCoilImage
 
 @Composable
 fun EmployeeListItemRow(
-    imageUrl: String?, name: String, team: String, modifier: Modifier = Modifier
+    imageUrl: String?, name: String?, team: String?, modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
@@ -41,14 +41,14 @@ fun EmployeeListItemRow(
         ) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = name,
+                text = name ?: "",
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = team,
+                text = team ?: "",
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
