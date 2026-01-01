@@ -27,7 +27,7 @@ fun ErrorContent(
     ) {
         Icon(
             imageVector = Icons.Outlined.ErrorOutline,
-            contentDescription = null,
+            contentDescription = "error_content_description",
             modifier = Modifier.size(44.dp),
             tint = MaterialTheme.colorScheme.error
         )
@@ -42,6 +42,7 @@ fun ErrorContent(
         Spacer(modifier = Modifier.height(8.dp))
         Button(
             onClick = onRetry,
+
         ) {
             Text(retryText)
         }

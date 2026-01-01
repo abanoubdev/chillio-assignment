@@ -57,7 +57,14 @@ dependencies {
 
     implementation(libs.coil)
 
-    // Debugging tools
-    debugImplementation(libs.androidx.ui.tooling)
+
+    //Testing
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.runner)
+    androidTestImplementation(libs.androidx.core)
+    androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.ui.test.manifest)
+    debugImplementation(libs.androidx.ui.tooling)
 }
