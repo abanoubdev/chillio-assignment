@@ -82,14 +82,14 @@ private fun EmployeeListItemRowPreviewContent(
         ) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Jane Doe",
+                text = "Camille Rogers",
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Android Platform Team",
+                text = "Public Web & Marketing",
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
