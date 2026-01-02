@@ -9,6 +9,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -29,10 +30,15 @@ fun EmployeeListComposable(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
+    // Optimization: Using remember to memoize the onRetry lambda.
+    // This prevents the lambda from being recreated on every recomposition,
+    // which in turn prevents unnecessary recompositions of child composables like EmployeeListScreen.
+    val onRetry = remember { viewModel::retry }
+
     EmployeeListScreen(
         modifier = modifier,
         state = state,
-        onRetry = viewModel::retry
+        onRetry = onRetry
     )
 }
 
@@ -60,6 +66,7 @@ fun EmployeeListScreen(
                 employees = state.employees,
                 modifier = modifier,
                 isRefreshing = state.isRefreshing,
+                // Pass the stable onRetry lambda to onRefresh
                 onRefresh = onRetry
             )
         }
@@ -103,6 +110,9 @@ fun EmployeeListUI(
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(
                 items = employees,
+                // Performance: Providing a stable key is crucial for LazyColumn performance.
+                // It allows Compose to uniquely identify items, avoiding unnecessary recompositions
+                // of list items when the list changes. `it.uuid` is a good choice as it is unique and stable.
                 key = { it.uuid }
             ) { employee ->
                 EmployeeListItemRow(
