@@ -8,16 +8,16 @@ import net.chillio.network.domain.EmployeeListDataSource
 import net.chillio.network.utils.ApiResult
 
 class EmployeeListUseCase @Inject constructor(
-    private val dataSource: EmployeeListDataSource
+    private val employeeListDataSource: EmployeeListDataSource
 ) {
     operator fun invoke(): Flow<ApiResult<List<Employee>>> =
-        dataSource.getEmployeeList().map { result ->
-            when (result) {
+        employeeListDataSource.getEmployeeList().map { apiResult ->
+            when (apiResult) {
                 ApiResult.Loading -> ApiResult.Loading
                 ApiResult.Empty -> ApiResult.Empty
-                is ApiResult.Error -> ApiResult.Error(result.throwable)
+                is ApiResult.Error -> ApiResult.Error(apiResult.throwable)
                 is ApiResult.Success -> {
-                    val employees = result.data.employees
+                    val employees = apiResult.data.employees
                         .filterNotNull()
                     if (employees.isEmpty()) ApiResult.Empty
                     else ApiResult.Success(employees)
